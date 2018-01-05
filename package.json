@@ -1,0 +1,23 @@
+{
+  "name": "node-logs",
+  "version": "1.0.0",
+  "description": "A logger library for lalamove",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test.js --100"
+  },
+  "keywords": [
+    "logs",
+    "logger",
+    "lalamove"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leviero/node-logs"
+  },
+  "author": "Leviero",
+  "license": "MIT",
+  "devDependencies": {
+    "tap": "11.0.1"
+  }
+}
