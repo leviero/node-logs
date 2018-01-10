@@ -15,6 +15,9 @@
     "type": "git",
     "url": "https://github.com/leviero/node-logs"
   },
+  "files": [
+    "index.js"
+  ],
   "author": "Leviero",
   "license": "MIT",
   "devDependencies": {
