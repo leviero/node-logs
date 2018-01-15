@@ -3,7 +3,7 @@ This project is created in order to standardize the logs format across all node-
 
 ## Install
 ```
-npm install node-logs
+npm install --save node-logs
 ```
 
 ## Configuration
