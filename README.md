@@ -3,25 +3,26 @@ This project is created in order to standardize the logs format across all node-
 
 ## Install
 ```
-npm install --save node-logs
+npm install --save @lalamove/logs
 ```
 
 ## Configuration
 Before using this logs module, if you need to output the line number you need to define the global object in your project. You can copy the code below:
 ```
+'use strict'
 if (typeof __stack === 'undefined') {
     Object.defineProperty(global, '__stack', {
         get: function() {
-            var orig
+            let orig
             try {
                 orig = Error.prepareStackTrace
                 Error.prepareStackTrace = function(_, stack) {
                     return stack
                 }
-                var err = new Error()
+                let err = new Error()
                 Error.captureStackTrace(err, arguments.callee)
             } catch (err) {
-                var stack = err.stack
+                let stack = err.stack
                 Error.prepareStackTrace = orig
                 return stack
             }
@@ -55,6 +56,7 @@ The output of the log will be printed out to the standard output in the format b
 
 ### Usage
 ```
+'use strict'
 const log = require('node-logs')
 
 // info log
