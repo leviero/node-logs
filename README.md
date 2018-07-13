@@ -1,40 +1,9 @@
-# node-logs
+# lalalogs
 This project is created in order to standardize the logs format across all node-js projects used in lalamove
 
 ## Install
 ```
-npm install --save @lalamove/logs
-```
-
-## Configuration
-Before using this logs module, if you need to output the line number you need to define the global object in your project. You can copy the code below:
-```
-'use strict'
-if (typeof __stack === 'undefined') {
-    Object.defineProperty(global, '__stack', {
-        get: function() {
-            let orig
-            try {
-                orig = Error.prepareStackTrace
-                Error.prepareStackTrace = function(_, stack) {
-                    return stack
-                }
-                let err = new Error()
-                Error.captureStackTrace(err, arguments.callee)
-            } catch (err) {
-                let stack = err.stack
-                Error.prepareStackTrace = orig
-                return stack
-            }
-        }
-    })
-
-    Object.defineProperty(global, '__line', {
-        get: function() {
-            return __stack[2].getLineNumber()
-        }
-    })
-}
+npm install --save lalalogs
 ```
 
 ## Features
@@ -57,38 +26,30 @@ The output of the log will be printed out to the standard output in the format b
 ### Usage
 ```
 'use strict'
-const log = require('node-logs')
+const log = require('lalalogs')()
 
 // info log
 log.info(
     'info', // string message
-    { data }, // custom fields
-    path.relative(process.cwd(), __filename), // filename path
-    __line // line number
+    { data } // custom fields
 )
 
 // debug log
 log.debug(
     'debug', // string message
     { data }, // custom fields
-    path.relative(process.cwd(), __filename), // filename path
-    __line // line number
 )
 
 // warning log
 log.warning(
     'warning', // string message
     { data }, // custom fields
-    path.relative(process.cwd(), __filename), // filename path
-    __line // line number
 )
 
 // error log
 log.error(
     'error', // string message
     { data }, // custom fields
-    path.relative(process.cwd(), __filename), // filename path
-    __line, // line number
     err.stack // error stack trace object
 )
 
@@ -96,8 +57,6 @@ log.error(
 log.fatal(
     'fatal', // string message
     { data }, // custom fields
-    path.relative(process.cwd(), __filename), // filename path
-    __line, // line number
     err.stack // error stack trace object
 )
 ```
