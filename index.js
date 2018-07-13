@@ -11,8 +11,8 @@ function logger() {
 
     // private function
     function getLogger(level) {
-        let {callerFile, callerLine} = getCallerFileAndLine()
         return function (message, fields, backtrace, src_file, src_line) {
+            let {callerFile, callerLine} = getCallerFileAndLine()
             let data = {
                 message,
                 level,
