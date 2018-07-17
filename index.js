@@ -12,13 +12,13 @@ function logger() {
     // private function
     function getLogger(level) {
         return function (message, fields, backtrace, src_file, src_line) {
-            let {callerFile, callerLine} = getCallerFileAndLine()
+            let callerInfo = getCallerFileAndLine()
             let data = {
                 message,
                 level,
                 fields,
-                src_file: src_file || callerFile,
-                src_line: src_line || callerLine,
+                src_file: src_file || callerInfo.callerFile,
+                src_line: src_line || callerInfo.callerLine,
                 time: (new Date()).toISOString()
             }
 
@@ -31,7 +31,7 @@ function logger() {
 
     function getCallerFileAndLine() {
         let originalPrepMethod = Error.prepareStackTrace
-        let callerFile, callerLine
+        let callerInfo = {}
         try {
             let err = new Error()
             Error.prepareStackTrace = function returnStack (err, stack) { return stack }
@@ -40,15 +40,15 @@ function logger() {
 
             while (err.stack.length) {
                 stack = err.stack.shift()
-                callerFile = stack.getFileName()
-                callerLine = stack.getLineNumber()
+                callerInfo.callerFile = stack.getFileName()
+                callerInfo.callerLine = stack.getLineNumber()
 
-                if (currentFile !== callerFile) break
+                if (currentFile !== callerInfo.callerFile) break
             }
         } catch (e) {}
 
         Error.prepareStackTrace = originalPrepMethod
-        return { callerFile, callerLine }
+        return callerInfo
     }
 }
 
