@@ -1,6 +1,6 @@
 {
   "name": "lalalogs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A logger library for lalamove",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/lalamove/node-logs"
+    "url": "https://github.com/leviero/node-logs"
   },
   "files": [
     "index.js"
