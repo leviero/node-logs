@@ -1,6 +1,6 @@
 {
   "name": "lalalogs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A logger library for lalamove",
   "main": "index.js",
   "scripts": {
