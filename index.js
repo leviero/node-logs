@@ -11,12 +11,12 @@ function logger() {
 
     // private function
     function getLogger(level) {
-        return function (message, fields, backtrace, src_file, src_line) {
+        return function (message, context, backtrace, src_file, src_line) {
             let callerInfo = getCallerFileAndLine()
             let data = {
                 message,
                 level,
-                fields,
+                context,
                 src_file: src_file || callerInfo.callerFile,
                 src_line: src_line || callerInfo.callerLine,
                 time: (new Date()).toISOString()

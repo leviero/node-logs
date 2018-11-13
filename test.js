@@ -25,12 +25,12 @@ tap.test('check log level', function(childTest) {
 
 tap.test('check log format', function(childTest) {
     const message = 'ERROR'
-    const fields = {}
+    const context = {}
     const src_file = path.relative(process.cwd(), __filename)
     const backtrace = {}
-    let errorLog = log.info(message, fields, backtrace, src_file, null)
+    let errorLog = log.info(message, context, backtrace, src_file, null)
     childTest.equal(errorLog.message, message)
-    childTest.equal(errorLog.fields, fields)
+    childTest.equal(errorLog.context, context)
     childTest.equal(errorLog.src_file, src_file)
     childTest.equal(errorLog.backtrace, backtrace)
     childTest.end()
