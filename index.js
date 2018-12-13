@@ -14,6 +14,9 @@ function logger() {
         return function (message, context, backtrace, src_file, src_line) {
             let callerInfo = getCallerFileAndLine()
 
+            // normally, request and response in the context object can be a huge object.
+            // when the logs are processed by kubernetes, it result to thousands of fields depending on your application
+            // Thus results in performance penalty from the indexs. thus on e solution is to espace it and let k8s treat it as string
             if ("request" in context){
                 context.request = JSON.stringify(context.request).replace(/\{/g, '\\{').replace(/}/g, '\\}');
             }
