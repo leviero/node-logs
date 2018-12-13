@@ -13,6 +13,15 @@ function logger() {
     function getLogger(level) {
         return function (message, context, backtrace, src_file, src_line) {
             let callerInfo = getCallerFileAndLine()
+
+            if ("request" in context){
+                context.request = JSON.stringify(context.request).replace(/\{/g, '\\{').replace(/}/g, '\\}');
+            }
+
+            if ("response" in context) {
+                context.response = JSON.stringify(context.response).replace(/\{/g, '\\{').replace(/}/g, '\\}');
+            }
+
             let data = {
                 message,
                 level,
