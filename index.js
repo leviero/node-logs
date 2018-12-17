@@ -13,6 +13,18 @@ function logger() {
     function getLogger(level) {
         return function (message, context, backtrace, src_file, src_line) {
             let callerInfo = getCallerFileAndLine()
+
+            // normally, request and response in the context object can be a huge object.
+            // when the logs are processed by Elasticsearch, it result in thousands of fields depending on your application
+            // Thus results in performance penalty from the indexes. thus the solution is to escape it and let Kubernetes treat it as string
+            if ("request" in context){
+                context.request = JSON.stringify(context.request).replace(/\{/g, '\\{').replace(/}/g, '\\}');
+            }
+
+            if ("response" in context) {
+                context.response = JSON.stringify(context.response).replace(/\{/g, '\\{').replace(/}/g, '\\}');
+            }
+
             let data = {
                 message,
                 level,
