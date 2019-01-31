@@ -14,18 +14,6 @@ Object.defineProperty(global, '__stack', {
   }
 })
 
-Object.defineProperty(global, '__line', {
-  get: function() {
-    return __stack[1].getLineNumber()
-  }
-})
-
-Object.defineProperty(global, '__function', {
-  get: function() {
-    return __stack[1].getFunctionName()
-  }
-})
-
 const getCircularReplacer = () => {
   const seen = new WeakSet()
   return (key, value) => {
@@ -45,7 +33,7 @@ function _log({ msg, level, context, backtrace }) {
       message: msg,
       src_line: __stack[2].getLineNumber(),
       src_file: this.filename,
-      context: typeof context === 'string' ? { data: context } : context,
+      context,
       level,
       time: new Date().toISOString(),
       backtrace
@@ -56,11 +44,20 @@ function _log({ msg, level, context, backtrace }) {
 
 function makeMethod(name) {
   return function(msg = __stack[1].getFunctionName(), context = {}, backtrace) {
-    const isValid = typeof msg === 'string' && typeof context === 'object'
+    const isValid =
+      typeof msg === 'string' &&
+      (typeof context === 'object' || typeof context === 'string')
     if (!isValid) {
       throw new TypeError('invalid arguments')
     } else {
-      console.log(_log.call(this, { level: name, msg, context, backtrace }))
+      console.log(
+        _log.call(this, {
+          level: name,
+          msg,
+          context: typeof context === 'string' ? { data: context } : context,
+          backtrace
+        })
+      )
     }
   }
 }
