@@ -1,7 +1,9 @@
 # lalalogs
+
 This project is created in order to standardize the logs format across all node-js projects used in lalamove
 
 ## Install
+
 ```
 npm install --save lalalogs
 ```
@@ -11,6 +13,7 @@ npm install --save lalalogs
 ### Log format
 
 The output of the log will be printed out to the standard output in the format below:
+
 ```
 {
     "message": "", // string describing what happened
@@ -24,6 +27,7 @@ The output of the log will be printed out to the standard output in the format b
 ```
 
 ### Usage
+
 ```
 const Logger = require('lalalogs')
 const log = new Logger()
@@ -59,7 +63,15 @@ log.fatal(
     { name: 'Chen' }, // custom fields
     err.stack // error stack trace object
 )
+
+const handler = (req, res) => {
+    log.info(
+        'incoming request for something',
+        { request: req, response: res, user_id: 'xxxx' }
+    )
+}
 ```
 
 ## Licensing
+
 The code in this project is licensed under MIT license.
