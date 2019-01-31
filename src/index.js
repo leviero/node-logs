@@ -1,15 +1,19 @@
 require('babel-polyfill')
+require('proxy-polyfill')
 
 Object.defineProperty(global, '__stack', {
-  get: function() {
+  get: function(...args) {
     var orig = Error.prepareStackTrace
     Error.prepareStackTrace = function(_, stack) {
       return stack
     }
     var err = new Error()
-    Error.captureStackTrace(err, arguments.callee)
+    Error.captureStackTrace(err, args.callee)
     var stack = err.stack
     Error.prepareStackTrace = orig
+    while (stack[0].getFileName() === __filename) {
+      stack.shift()
+    }
     return stack
   }
 })
@@ -31,8 +35,8 @@ function _log({ msg, level, context, backtrace }) {
   return JSON.stringify(
     {
       message: msg,
-      src_line: __stack[2].getLineNumber(),
-      src_file: this.filename,
+      src_line: __stack[0].getLineNumber(),
+      src_file: __stack[0].getFileName(),
       context,
       level,
       time: new Date().toISOString(),
@@ -43,7 +47,7 @@ function _log({ msg, level, context, backtrace }) {
 }
 
 function makeMethod(name) {
-  return function(msg = __stack[1].getFunctionName(), context = {}, backtrace) {
+  return function(msg = '', context = {}, backtrace) {
     const isValid =
       typeof msg === 'string' &&
       (typeof context === 'object' || typeof context === 'string')
@@ -65,8 +69,7 @@ function makeMethod(name) {
 const METHODS = ['info', 'debug', 'warning', 'error', 'fatal']
 
 class Logger {
-  constructor(filename = __stack[1].getFileName()) {
-    this.filename = filename
+  constructor() {
     METHODS.map(method => (Logger.prototype[method] = makeMethod(method)))
   }
   static get _methods() {

@@ -6,23 +6,23 @@
  */
 'use strict'
 exports[`test.js TAP log format > info 1`] = `
-{"message":"test","src_line":19,"context":{"a":1,"b":2,"c":"3"},"level":"info","time":"2019-01-31T04:00:03.156Z"}
+{"message":"test","src_line":17,"src_file":"/Users/jakechoi/repos/node-logs/test.js","context":{"a":1,"b":2,"c":"3"},"level":"info","time":"2019-01-31T05:37:07.558Z"}
 `
 
 exports[`test.js TAP log format > debug 1`] = `
-{"message":"test","src_line":19,"context":{"a":1,"b":2,"c":"3"},"level":"debug","time":"2019-01-31T04:00:03.158Z"}
+{"message":"test","src_line":17,"src_file":"/Users/jakechoi/repos/node-logs/test.js","context":{"a":1,"b":2,"c":"3"},"level":"debug","time":"2019-01-31T05:37:07.559Z"}
 `
 
 exports[`test.js TAP log format > warning 1`] = `
-{"message":"test","src_line":19,"context":{"a":1,"b":2,"c":"3"},"level":"warning","time":"2019-01-31T04:00:03.158Z"}
+{"message":"test","src_line":17,"src_file":"/Users/jakechoi/repos/node-logs/test.js","context":{"a":1,"b":2,"c":"3"},"level":"warning","time":"2019-01-31T05:37:07.560Z"}
 `
 
 exports[`test.js TAP log format > error 1`] = `
-{"message":"test","src_line":19,"context":{"a":1,"b":2,"c":"3"},"level":"error","time":"2019-01-31T04:00:03.158Z"}
+{"message":"test","src_line":17,"src_file":"/Users/jakechoi/repos/node-logs/test.js","context":{"a":1,"b":2,"c":"3"},"level":"error","time":"2019-01-31T05:37:07.560Z"}
 `
 
 exports[`test.js TAP log format > fatal 1`] = `
-{"message":"test","src_line":19,"context":{"a":1,"b":2,"c":"3"},"level":"fatal","time":"2019-01-31T04:00:03.159Z"}
+{"message":"test","src_line":17,"src_file":"/Users/jakechoi/repos/node-logs/test.js","context":{"a":1,"b":2,"c":"3"},"level":"fatal","time":"2019-01-31T05:37:07.560Z"}
 `
 
 exports[`test.js TAP levels > levels 1`] = `
