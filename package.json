@@ -2,9 +2,11 @@
   "name": "lalalogs",
   "version": "1.0.3",
   "description": "A logger library for lalamove",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "tap test.js --100"
+    "test": "TAP_SNAPSHOT=1 tap test.js",
+    "compile": "babel --presets env -d lib/ src/",
+    "prepublish": "npm run compile"
   },
   "keywords": [
     "logs",
@@ -16,11 +18,16 @@
     "url": "https://github.com/leviero/node-logs"
   },
   "files": [
-    "index.js"
+    "lib/index.js"
   ],
   "author": "Leviero",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "tap": "11.0.1"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
   }
 }
