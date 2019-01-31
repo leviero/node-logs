@@ -25,38 +25,38 @@ The output of the log will be printed out to the standard output in the format b
 
 ### Usage
 ```
-'use strict'
-const log = require('lalalogs')()
+const Logger = require('lalalogs')
+const log = new Logger()
 
 // info log
 log.info(
-    'info', // string message
-    { data } // custom fields
+    'blah blah blah', // string message
+    { name: 'Chen' } // custom fields
 )
 
 // debug log
 log.debug(
-    'debug', // string message
-    { data }, // custom fields
+    'blah blah blah', // string message
+    { name: 'Chen' }, // custom fields
 )
 
 // warning log
 log.warning(
-    'warning', // string message
-    { data }, // custom fields
+    'blah blah blah', // string message
+    { name: 'Chen' }, // custom fields
 )
 
 // error log
 log.error(
-    'error', // string message
-    { data }, // custom fields
+    'blah blah blah', // string message
+    { name: 'Chen' }, // custom fields
     err.stack // error stack trace object
 )
 
 // fatal log
 log.fatal(
-    'fatal', // string message
-    { data }, // custom fields
+    'blah blah blah', // string message
+    { name: 'Chen' }, // custom fields
     err.stack // error stack trace object
 )
 ```
