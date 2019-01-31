@@ -6,7 +6,7 @@
   "scripts": {
     "test": "TAP_SNAPSHOT=1 tap test.js",
     "compile": "babel --presets env -d lib/ src/",
-    "prepublish": "npm run compile"
+    "prepare": "npm run compile"
   },
   "keywords": [
     "logs",
