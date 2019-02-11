@@ -1,37 +1,33 @@
-'use strict'
-const path = require('path')
 const tap = require('tap')
-const log = require('./index.js')()
+const Logger = require('./src/index')
+// const Logger = require('./lib/index')
 
-tap.test('get logger', function(childTest) {
-    let keys = Object.keys(log)
-    childTest.same(keys, ['info', 'debug', 'warning', 'error', 'fatal'])
-    childTest.end()
+tap.test('instantiation', t => {
+  const log = new Logger()
+  t.type(log, Logger)
+  t.ok(new Logger())
+  t.ok(new Logger(__filename))
+  t.doesNotThrow(Logger)
+  t.end()
 })
 
-tap.test('check log level', function(childTest) {
-    let infoLog = log.info('INFO', {})
-    let debugLog = log.debug('DEBUG', {})
-    let warningLog = log.warning('WARNING', {})
-    let errorLog = log.error('ERROR', {})
-    let fatalLog = log.fatal('FATAL', {})
-    childTest.equal(infoLog.level, 'info')
-    childTest.equal(debugLog.level, 'debug')
-    childTest.equal(warningLog.level, 'warning')
-    childTest.equal(errorLog.level, 'error')
-    childTest.equal(fatalLog.level, 'fatal')
-    childTest.end()
+tap.test('log format', t => {
+  const methods = Logger._methods
+  const log = new Logger()
+  log.log = m => Logger._log({ msg: 'test', level: m, context: { a: 1, b: 2, c: '3' } })
+  methods.map(m => {
+    t.matchSnapshot(
+      log.log(m),
+      m
+    )
+  })
+  t.end()
 })
 
-tap.test('check log format', function(childTest) {
-    const message = 'ERROR'
-    const context = {}
-    const src_file = path.relative(process.cwd(), __filename)
-    const backtrace = {}
-    let errorLog = log.info(message, context, backtrace, src_file, null)
-    childTest.equal(errorLog.message, message)
-    childTest.equal(errorLog.context, context)
-    childTest.equal(errorLog.src_file, src_file)
-    childTest.equal(errorLog.backtrace, backtrace)
-    childTest.end()
+tap.test('levels', t => {
+  const log = new Logger()
+  const methods = Logger._methods
+  t.matchSnapshot(methods, 'levels')
+  methods.map(m => t.type(log[m], 'function'))
+  t.end()
 })
